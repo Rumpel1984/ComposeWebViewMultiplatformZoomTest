@@ -7,9 +7,7 @@ const xhr = new XMLHttpRequest();
 xhr.open('GET', 'test.svg', true);
 xhr.addEventListener('load', function () {
 	svgDoc = xhr.responseXML.documentElement;
-	//svgDoc.setAttribute("height", "100%");
-	//svgDoc.setAttribute("width", "100%");
-	
+
 	svgContainer.ownerDocument.importNode(svgDoc);
 	svgContainer.appendChild(svgDoc);
 
@@ -40,13 +38,8 @@ xhr.send();
 function doSomething(e) {
     if (e.target !== e.currentTarget) {
         var item;
-        //document.getElementById('l_value').innerHTML = e.target.id;
-        //document.getElementById('l_value').innerHTML = e.target.parentElement.id;
-        //document.getElementById('l_value').innerHTML = e.target.parentElement.parentElement.id;
-		//document.getElementById('l_value').innerHTML = e.target.id+" - "+tableSelectable.length;
-        for (item = 0; item < tableSelectable.length; item++) {
+       for (item = 0; item < tableSelectable.length; item++) {
             var svgPath = svgDoc.getElementById(tableSelectable[item].id);
-            //document.getElementById('l_value').innerHTML = document.getElementById('l_value').innerHTML + " | " + tableSelectable[item].id
 
             if (svgPath.classList.contains("selected")) {
                 svgPath.classList.remove("selected");
@@ -80,14 +73,12 @@ function loadCompeleted() {
 
 
 function showLayer(layer) {
-	//document.getElementById('l_value').innerHTML = "Layer: "+layer+" - "+tableLayouts.length;
     var item;
     for (item = 0; item < tableLayouts.length; item++) {
         var svgPath = svgDoc.getElementById(tableLayouts[item].id);
         svgPath.style.display = "none";
         if (layer === tableLayouts[item].id) {
             svgPath.style.display = "inline";
-            //document.getElementById('l_value').innerHTML = svgPath.querySelector('title').innerHTML;
         }
     }
 }
