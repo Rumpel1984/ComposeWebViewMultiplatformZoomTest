@@ -2,6 +2,8 @@ package com.rumpel1984.webviewzoomtest
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.multiplatform.webview.jsbridge.rememberWebViewJsBridge
 import com.multiplatform.webview.util.KLogSeverity
@@ -18,23 +20,28 @@ fun example4() {
     val webViewNavigator = rememberWebViewNavigator()
     val webViewJsBridge = rememberWebViewJsBridge()
 
-    webViewState.webSettings.apply {
-        logSeverity = KLogSeverity.Error
-        isJavaScriptEnabled = true
-        supportZoom = true
-        zoomLevel = 1.0
-        allowFileAccessFromFileURLs = true
-        allowUniversalAccessFromFileURLs = true
-        androidWebSettings.apply {
-            useWideViewPort = true
-            safeBrowsingEnabled = true
-            allowFileAccess = true
+    DisposableEffect(Unit) {
+        webViewState.webSettings.apply {
+            logSeverity = KLogSeverity.Error
+            isJavaScriptEnabled = true
+            supportZoom = true
+            zoomLevel = 1.0
+            allowFileAccessFromFileURLs = true
+            allowUniversalAccessFromFileURLs = true
+            androidWebSettings.apply {
+                useWideViewPort = true
+                safeBrowsingEnabled = true
+                allowFileAccess = true
+            }
         }
+        onDispose { }
     }
 
-    webViewJsBridge.register(ShowDialogJSMessageHandler())
-    webViewJsBridge.register(HideDialogJSMessageHandler())
-    webViewJsBridge.register(LoadCompletedJSMessageHandler())
+    LaunchedEffect(webViewJsBridge) {
+        webViewJsBridge.register(ShowDialogJSMessageHandler())
+        webViewJsBridge.register(HideDialogJSMessageHandler())
+        webViewJsBridge.register(LoadCompletedJSMessageHandler())
+    }
 
     WebView(
         modifier = Modifier.fillMaxSize(),

@@ -3,6 +3,7 @@ package com.rumpel1984.webviewzoomtest
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import com.multiplatform.webview.util.KLogSeverity
 import com.multiplatform.webview.web.WebView
@@ -14,18 +15,21 @@ fun example1() {
     val webViewState = rememberWebViewStateWithHTMLFile("example1.html")
     val webViewNavigator = rememberWebViewNavigator()
 
-    webViewState.webSettings.apply {
-        logSeverity = KLogSeverity.Error
-        isJavaScriptEnabled = true
-        supportZoom = true
-        zoomLevel = 0.4
-        allowFileAccessFromFileURLs = true
-        allowUniversalAccessFromFileURLs = true
-        androidWebSettings.apply {
-            useWideViewPort = true
-            safeBrowsingEnabled = true
-            allowFileAccess = true
+    DisposableEffect(Unit) {
+        webViewState.webSettings.apply {
+            logSeverity = KLogSeverity.Error
+            isJavaScriptEnabled = true
+            supportZoom = true
+            zoomLevel = 0.4
+            allowFileAccessFromFileURLs = true
+            allowUniversalAccessFromFileURLs = true
+            androidWebSettings.apply {
+                useWideViewPort = true
+                safeBrowsingEnabled = true
+                allowFileAccess = true
+            }
         }
+        onDispose { }
     }
 
     Column(
