@@ -7,19 +7,20 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import com.multiplatform.webview.util.KLogSeverity
 import com.multiplatform.webview.web.WebView
+import com.multiplatform.webview.web.WebViewFileReadType
 import com.multiplatform.webview.web.rememberWebViewNavigator
 import com.multiplatform.webview.web.rememberWebViewStateWithHTMLFile
 
 @Composable
 fun example2() {
-    val webViewState = rememberWebViewStateWithHTMLFile("example1.html")
+    val webViewState = rememberWebViewStateWithHTMLFile("example2.html", WebViewFileReadType.ASSET_RESOURCES)
     val webViewNavigator = rememberWebViewNavigator()
 
     DisposableEffect(Unit) {
         webViewState.webSettings.apply {
             logSeverity = KLogSeverity.Error
             isJavaScriptEnabled = true
-            supportZoom = true
+            supportZoom = false
             zoomLevel = 0.4
             allowFileAccessFromFileURLs = true
             allowUniversalAccessFromFileURLs = true
@@ -29,7 +30,9 @@ fun example2() {
                 allowFileAccess = true
             }
         }
-        onDispose { }
+        onDispose {
+
+        }
     }
 
     Column(

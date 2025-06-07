@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import com.multiplatform.webview.jsbridge.rememberWebViewJsBridge
 import com.multiplatform.webview.util.KLogSeverity
 import com.multiplatform.webview.web.WebView
+import com.multiplatform.webview.web.WebViewFileReadType
 import com.multiplatform.webview.web.rememberWebViewNavigator
 import com.multiplatform.webview.web.rememberWebViewStateWithHTMLFile
 import com.rumpel1984.webviewzoomtest.jsbridge.HideDialogJSMessageHandler
@@ -16,7 +17,7 @@ import com.rumpel1984.webviewzoomtest.jsbridge.ShowDialogJSMessageHandler
 
 @Composable
 fun example4() {
-    val webViewState = rememberWebViewStateWithHTMLFile("example4.html")
+    val webViewState = rememberWebViewStateWithHTMLFile("example4.html", WebViewFileReadType.ASSET_RESOURCES)
     val webViewNavigator = rememberWebViewNavigator()
     val webViewJsBridge = rememberWebViewJsBridge()
 
